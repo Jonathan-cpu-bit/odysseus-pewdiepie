@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Odysseus</title>
+  <style>
+    body {
+      background-color: #131313;
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+    }
+    .spinner {
+      border: 3px solid rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+      border-top: 3px solid #ffffff;
+      width: 30px;
+      height: 30px;
+      animation: spin 1s linear infinite;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body>
+  <div class="spinner"></div>
+  <script>
+    // Poll the local server every 150ms for an instant native handoff
+    let check = setInterval(() => {
+        fetch('http://127.0.0.1:7860/', { mode: 'no-cors' })
+        .then(() => { 
+            clearInterval(check);
+            window.location.href = 'http://127.0.0.1:7860/'; 
+        })
+        .catch(() => {});
+    }, 150);
+  </script>
+</body>
+</html>

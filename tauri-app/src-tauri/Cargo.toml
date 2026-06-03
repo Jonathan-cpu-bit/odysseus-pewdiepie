@@ -1,0 +1,17 @@
+[package]
+name = "app"
+version = "0.1.0"
+description = "Odysseus"
+authors = ["Jonathan"]
+edition = "2021"
+
+[build-dependencies]
+tauri-build = { version = "1.5.6", features = [] }
+
+[dependencies]
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+tauri = { version = "1.8.3", features = [ "api-all", "system-tray"] }
+
+[features]
+custom-protocol = [ "tauri/custom-protocol" ]
