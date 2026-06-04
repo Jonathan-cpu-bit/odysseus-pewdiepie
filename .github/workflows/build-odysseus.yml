@@ -48,6 +48,13 @@ jobs:
         run: |
           node -e "const fs = require('fs'); let code = fs.readFileSync('main.rs', 'utf8'); code = code.replace('use tauri::{ActivationPolicy, ', 'use tauri::{'); code = code.replace('use std::process::Command;', 'use std::process::Command;\n#[cfg(target_os = \"macos\")]\nuse tauri::ActivationPolicy;'); fs.writeFileSync('main.rs', code);"
 
+      - name: Fix NPM Tauri Scripts
+        working-directory: ./tauri-app
+        shell: bash
+        run: |
+          npm install -D @tauri-apps/cli@1
+          npm pkg set scripts.tauri="tauri"
+
       - name: Build Tauri App
         uses: tauri-apps/tauri-action@v0
         env:
@@ -58,4 +65,3 @@ jobs:
           releaseName: "Odysseus v0.1.${{ github.run_number }}"
           releaseDraft: false
           prerelease: false
-          tauriScript: npx tauri
